@@ -1,5 +1,6 @@
 import React from 'react'
 import logo from './logo.svg'
+import './App.css'
 
 function App() {
 	return (
@@ -13,19 +14,19 @@ function App() {
 }
 
 function Rotation() {
-	return <div id="rotation"></div>
+	return <div id="rotation" className="squareBubble"></div>
 }
 
 function Schedule() {
-	return <div id="schedule"></div>
+	return <div id="schedule" className="squareBubble"></div>
 }
 
 function Cut() {
-	return <div id="cut"></div>
+	return <div id="cut" className="squareBubble"></div>
 }
 
 function Introduce() {
-	return <div id="introduce"></div>
+	return <div id="introduce" className="squareBubble"></div>
 }
 
 export default App
