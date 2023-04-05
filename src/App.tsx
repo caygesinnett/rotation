@@ -7,8 +7,12 @@ function App() {
 		<div className="App">
 			<header className="App-header">
 				<img src={logo} className="App-logo" alt="logo" />
-				<p>In Development, clearing bugs</p>
-				<p>Working version due the 11th</p>
+				<p>
+					in development:<br></br>
+					clearing bugs<br></br>
+					testing features<br></br>
+					working version due the 11th
+				</p>
 			</header>
 		</div>
 	)
