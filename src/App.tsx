@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from './logo.svg'
-import './App.css'
+import './app.css'
 
 function App() {
 	return (
@@ -41,6 +41,17 @@ function Introduce() {
 	return (
 		<div id="introduce" className="squareBubble">
 			<div className="bubbleLabel">Add New Servers</div>
+			<Open />
+		</div>
+	)
+}
+
+function Open() {
+	const [isOpen, setIsOpen] = useState(false)
+	const openOrClose = () => (isOpen ? setIsOpen(false) : setIsOpen(true))
+	return (
+		<div className="block centerText" onClick={openOrClose}>
+			{isOpen ? 'Close' : 'Add Server to Schedule'}
 		</div>
 	)
 }
