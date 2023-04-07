@@ -43,6 +43,9 @@ body {
 	left: 7px;
 	bottom: 7px;
 }
+.block:hover {
+	cursor: pointer;
+}
 
 .centerText {
 	text-align: center;
