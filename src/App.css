@@ -58,7 +58,7 @@ body {
 	height: 58px;
 	color: var(--textColor);
 	text-align: center;
-	font-size: large;
+	font-size: xx-large;
 }
 
 .centerText {
@@ -66,4 +66,5 @@ body {
 	vertical-align: middle;
 	line-height: 60px;
 	color: var(--textColor);
+	font-size: x-large;
 }

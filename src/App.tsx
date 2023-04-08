@@ -1,16 +1,22 @@
 import React, { Children, useState } from 'react'
 import logo from './logo.svg'
 import './app.css'
+import Server from './server'
 
 function App() {
 	const [optionsAreOpen, setOptionsAreOpen] = useState(false)
-	const [serverOptions, setServerOptions] = useState<Array<any>>([])
+	const [serverOptions, setServerOptions] = useState<Array<Server>>([])
 	const [newServerIsOpen, setNewServerIsOpen] = useState(false)
+	const [scheduledServers, setScheduledServers] = useState<Array<Server>>([])
 
 	return (
 		<>
 			<Rotation />
-			<Schedule></Schedule>
+			<Schedule>
+				{scheduledServers.map((server, index) => {
+					return <ScheduledServer key={index.toString()}>{server.name}</ScheduledServer>
+				})}
+			</Schedule>
 			<Cut />
 			<Introduce>
 				{optionsAreOpen ? (
@@ -43,6 +49,10 @@ function App() {
 				{props.children}
 			</div>
 		)
+	}
+
+	function ScheduledServer(props: any) {
+		return <div className="block centerText">{props.children}</div>
 	}
 
 	function Cut() {
@@ -81,7 +91,21 @@ function App() {
 	}
 
 	function ServerOption(props: any) {
-		return <div className="block centerText">{props.children}</div>
+		const schedule = () => {
+			setScheduledServers(prevScheduledServers => {
+				// v this v line makes this function idempotent which is what react strict mode wants
+				const newScheduledServers = prevScheduledServers.filter(server => server.name !== props.children)
+				// ^      ^
+				newScheduledServers.push(serverOptions.find(server => server.name === props.children)!)
+				return newScheduledServers
+			})
+			setServerOptions(prevServerOptions => prevServerOptions.filter(server => server.name !== props.children))
+		}
+		return (
+			<div onClick={schedule} className="block centerText">
+				{props.children}
+			</div>
+		)
 	}
 
 	function AddServer() {
@@ -99,9 +123,10 @@ function App() {
 		const submit = () => {
 			setNewServerIsOpen(false)
 			setServerOptions(prevServerOptions => {
-				// v this v line makes the function idempotent which is what react strict mode wants
+				// v this v line makes this function idempotent which is what react strict mode wants
 				const newServerOptions = prevServerOptions.filter(server => server.name !== newServerName)
-				newServerOptions.push({ name: newServerName })
+				// ^      ^
+				newServerOptions.push(new Server({ name: newServerName }))
 				return newServerOptions
 			})
 		}
