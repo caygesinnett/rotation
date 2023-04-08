@@ -47,6 +47,20 @@ body {
 	cursor: pointer;
 }
 
+.submit {
+	width: 60px;
+	border-right: none;
+	float: left;
+}
+
+.input {
+	width: 234px;
+	height: 58px;
+	color: var(--textColor);
+	text-align: center;
+	font-size: large;
+}
+
 .centerText {
 	text-align: center;
 	vertical-align: middle;
