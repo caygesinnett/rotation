@@ -10,7 +10,7 @@ function App() {
 	return (
 		<>
 			<Rotation />
-			<Schedule />
+			<Schedule></Schedule>
 			<Cut />
 			<Introduce>
 				{optionsAreOpen ? (
@@ -36,10 +36,11 @@ function App() {
 		)
 	}
 
-	function Schedule() {
+	function Schedule(props: any) {
 		return (
 			<div id="schedule" className="squareBubble">
 				<div className="bubbleLabel">Scheduled Servers</div>
+				{props.children}
 			</div>
 		)
 	}
