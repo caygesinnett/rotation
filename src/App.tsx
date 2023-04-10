@@ -1,4 +1,4 @@
-import React, { Children, useState } from 'react'
+import React, { useState } from 'react'
 import logo from './logo.svg'
 import './app.css'
 import Server from './server'
@@ -8,13 +8,18 @@ function App() {
 	const [serverOptions, setServerOptions] = useState<Array<Server>>([])
 	const [newServerIsOpen, setNewServerIsOpen] = useState(false)
 	const [scheduledServers, setScheduledServers] = useState<Array<Server>>([])
+	const [rotatingServers, setRotatingServers] = useState<Array<Server>>([])
 
 	return (
 		<>
-			<Rotation />
+			<Rotation>
+				{rotatingServers.map((server, index) => {
+					return <RotatingServer key={index.toString()}>{server}</RotatingServer>
+				})}
+			</Rotation>
 			<Schedule>
 				{scheduledServers.map((server, index) => {
-					return <ScheduledServer key={index.toString()}>{server.name}</ScheduledServer>
+					return <ScheduledServer key={index.toString()}>{server}</ScheduledServer>
 				})}
 			</Schedule>
 			<Cut />
@@ -34,12 +39,46 @@ function App() {
 		</>
 	)
 
-	function Rotation() {
+	function Rotation(props: any) {
 		return (
 			<div id="rotation" className="squareBubble">
 				<div className="bubbleLabel">Rotation</div>
+				{props.children}
 			</div>
 		)
+	}
+
+	function RotatingServer(props: any) {
+		return (
+			<>
+				<Gear />
+				<Middle>
+					<Top>{props.children.topDisplay}</Top>
+					<Bottom>{props.children.bottomDisplay}</Bottom>
+				</Middle>
+				<Undo />
+			</>
+		)
+	}
+
+	function Gear() {
+		return <div className="block gear centerText">C</div>
+	}
+
+	function Middle(props: any) {
+		return <div className="block middle">{props.children}</div>
+	}
+
+	function Top(props: any) {
+		return <div className="block slice">{props.children}</div>
+	}
+
+	function Bottom(props: any) {
+		return <div className="block slice">{props.children}</div>
+	}
+
+	function Undo() {
+		return <div className="block undo centerText">U</div>
 	}
 
 	function Schedule(props: any) {
@@ -52,7 +91,21 @@ function App() {
 	}
 
 	function ScheduledServer(props: any) {
-		return <div className="block centerText">{props.children}</div>
+		const arrival = () => {
+			setRotatingServers(prevRotatingServers => {
+				// v this v line makes this function idempotent which is what react strict mode wants
+				const newRotatingServers = prevRotatingServers.filter(server => server.name !== props.children.name)
+				// ^      ^
+				newRotatingServers.push(scheduledServers.find(server => server.name === props.children.name)!)
+				return newRotatingServers
+			})
+			setScheduledServers(prevScheduledServers => prevScheduledServers.filter(server => server.name !== props.children.name))
+		}
+		return (
+			<div onClick={arrival} className="block centerText">
+				{props.children.name}
+			</div>
+		)
 	}
 
 	function Cut() {

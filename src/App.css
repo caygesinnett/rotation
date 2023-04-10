@@ -53,6 +53,34 @@ body {
 	float: left;
 }
 
+.gear {
+	width: 60px;
+	border-right: none;
+	float: left;
+}
+
+.middle {
+	display: flex;
+	flex-direction: column;
+	width: 240px;
+	float: left;
+	border-right: none;
+}
+
+.slice {
+	width: 100%;
+	border: none;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 30px;
+	font-size: large;
+	color: var(--textColor);
+}
+
+.undo {
+	width: 60px;
+}
+
 .input {
 	width: 234px;
 	height: 58px;
