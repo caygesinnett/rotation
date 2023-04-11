@@ -11,7 +11,9 @@ function App() {
 					in development:<br></br>
 					clearing bugs<br></br>
 					testing features<br></br>
-					working version due the 11th
+					working version due may 11th<br></br>
+					sorry, i had to put it off<br></br>
+					so that it works with 0 bugs
 				</p>
 			</header>
 		</div>
