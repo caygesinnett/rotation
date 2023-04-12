@@ -9,12 +9,14 @@ class Server {
 	name: string
 	count: Array<Table>
 	ideal: number
+	location: 'options' | 'schedule' | 'rotation' | 'cut'
 	arrival: Date | null
 	left: Date | null
 	constructor(object: Partial<Server>) {
 		this.name = 'Error'
 		this.count = []
 		this.ideal = 0
+		this.location = 'options'
 		this.arrival = null
 		this.left = null
 		for (const property in object) {
