@@ -27,6 +27,7 @@ export default function Options(props: sectionDomain) {
 								onClick={() => {
 									props.globalStateModifiers.createServer(newServerName)
 									setNewServerIsOpen(false)
+									setNewServerName('')
 								}}
 								className="block submit centerText"
 							>

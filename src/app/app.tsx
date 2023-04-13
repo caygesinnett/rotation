@@ -19,15 +19,6 @@ export default function App() {
 	const cutServers = servers.filter(server => server.location === 'cut')
 	const serverOptions = servers.filter(server => server.location === 'options')
 
-	return (
-		<>
-			<Rotation localList={rotatingServers} globalStateModifiers={{ cut: sendTo('cut'), undo: sendTo('schedule') }} />
-			<Schedule localList={scheduledServers} globalStateModifiers={{ arrival: sendTo('rotation') }} />
-			<Cut localList={cutServers} globalStateModifiers={{ uncut: sendTo('rotation') }} />
-			<Options localList={serverOptions} globalStateModifiers={{ schedule: sendTo('schedule'), createServer: newServer() }} />
-		</>
-	)
-
 	function sendTo(location: location) {
 		return (name: string) => {
 			const whoever = servers.find(server => server.name === name)
@@ -47,4 +38,13 @@ export default function App() {
 			})
 		}
 	}
+
+	return (
+		<>
+			<Rotation localList={rotatingServers} globalStateModifiers={{ cut: sendTo('cut'), undo: sendTo('schedule') }} />
+			<Schedule localList={scheduledServers} globalStateModifiers={{ arrival: sendTo('rotation') }} />
+			<Cut localList={cutServers} globalStateModifiers={{ uncut: sendTo('rotation') }} />
+			<Options localList={serverOptions} globalStateModifiers={{ schedule: sendTo('schedule'), createServer: newServer() }} />
+		</>
+	)
 }
