@@ -3,11 +3,12 @@ import { sectionDomain } from './app'
 import { useState } from 'react'
 
 export default function Options(props: sectionDomain) {
-	const [optionsAreOpen, setOptionsAreOpen] = useState<Boolean>(false)
-	const [newServerIsOpen, setNewServerIsOpen] = useState<Boolean>(false)
+	const [optionsAreOpen, setOptionsAreOpen] = useState<boolean>(false)
+	const [newServerIsOpen, setNewServerIsOpen] = useState<boolean>(false)
 	const [newServerName, setNewServerName] = useState('')
+
 	return (
-		<div id="introduce" className="squareBubble">
+		<div id="options" className="squareBubble">
 			<div className="bubbleLabel">Add New Servers</div>
 			{optionsAreOpen ? (
 				<>
@@ -16,14 +17,20 @@ export default function Options(props: sectionDomain) {
 					</div>
 					{props.localList.map((server, index) => {
 						return (
-							<div key={index.toString()} onClick={() => props.globalStateModifiers[0](server.name)} className="block centerText">
+							<div key={index.toString()} onClick={() => props.globalStateModifiers.schedule(server.name)} className="block centerText">
 								{server.name}
 							</div>
 						)
 					})}
 					{newServerIsOpen ? (
 						<>
-							<div onClick={() => props.globalStateModifiers[1](newServerName)} className="block submit centerText">
+							<div
+								onClick={() => {
+									props.globalStateModifiers.createServer(newServerName)
+									setNewServerIsOpen(false)
+								}}
+								className="block submit centerText"
+							>
 								^
 							</div>
 							<input onChange={(e: any) => setNewServerName(e.target.value)} id="newServerName" className="block input" type="text" />
