@@ -5,11 +5,13 @@ class Table {
 	}
 }
 
+export type location = 'options' | 'schedule' | 'rotation' | 'cut'
+
 class Server {
 	name: string
 	count: Array<Table>
 	ideal: number
-	location: 'options' | 'schedule' | 'rotation' | 'cut'
+	location: location
 	arrival: Date | null
 	left: Date | null
 	constructor(object: Partial<Server>) {

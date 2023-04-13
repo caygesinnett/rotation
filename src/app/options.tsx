@@ -1,6 +1,7 @@
 import './app.css'
+import { sectionDomain } from './app'
 
-function Introduce({ optionsAreOpen, newServerIsOpen, serverOptions }) {
+function Options({ optionsAreOpen, newServerIsOpen, serverOptions }) {
 	return (
 		<div id="introduce" className="squareBubble">
 			<div className="bubbleLabel">Add New Servers</div>
