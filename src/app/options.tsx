@@ -1,91 +1,44 @@
 import './app.css'
 import { sectionDomain } from './app'
+import { useState } from 'react'
 
-function Options({ optionsAreOpen, newServerIsOpen, serverOptions }) {
+export default function Options(props: sectionDomain) {
+	const [optionsAreOpen, setOptionsAreOpen] = useState<Boolean>(false)
+	const [newServerIsOpen, setNewServerIsOpen] = useState<Boolean>(false)
+	const [newServerName, setNewServerName] = useState('')
 	return (
 		<div id="introduce" className="squareBubble">
 			<div className="bubbleLabel">Add New Servers</div>
 			{optionsAreOpen ? (
 				<>
-					<CloseOptions />
-					{serverOptions.map((server, index) => {
-						return <ServerOption key={index.toString()}>{server.name}</ServerOption>
+					<div onClick={() => setOptionsAreOpen(false)} className="block centerText">
+						Close
+					</div>
+					{props.localList.map((server, index) => {
+						return (
+							<div key={index.toString()} onClick={() => props.globalStateModifiers[0](server.name)} className="block centerText">
+								{server.name}
+							</div>
+						)
 					})}
-					{newServerIsOpen ? <NewServer /> : <AddServer />}
+					{newServerIsOpen ? (
+						<>
+							<div onClick={() => props.globalStateModifiers[1](newServerName)} className="block submit centerText">
+								^
+							</div>
+							<input onChange={(e: any) => setNewServerName(e.target.value)} id="newServerName" className="block input" type="text" />
+						</>
+					) : (
+						<div onClick={() => setNewServerIsOpen(true)} className="block centerText">
+							Add New Server
+						</div>
+					)}
 				</>
 			) : (
-				<OpenOptions />
+				<div onClick={() => setOptionsAreOpen(true)} className="block centerText">
+					Add Server to Schedule
+				</div>
 			)}
 		</div>
 	)
 }
-
-function OpenOptions() {
-	const open = () => setOptionsAreOpen(true)
-	return (
-		<div onClick={open} className="block centerText">
-			Add Server to Schedule
-		</div>
-	)
-}
-
-function CloseOptions() {
-	const close = () => setOptionsAreOpen(false)
-	return (
-		<div onClick={close} className="block centerText">
-			Close
-		</div>
-	)
-}
-
-function ServerOption(props: any) {
-	const schedule = () => {
-		setScheduledServers(prevScheduledServers => {
-			// v this v line makes this function idempotent which is what react strict mode wants
-			const newScheduledServers = prevScheduledServers.filter(server => server.name !== props.children)
-			// ^      ^
-			newScheduledServers.push(serverOptions.find(server => server.name === props.children)!)
-			return newScheduledServers
-		})
-		setServerOptions(prevServerOptions => prevServerOptions.filter(server => server.name !== props.children))
-	}
-	return (
-		<div onClick={schedule} className="block centerText">
-			{props.children}
-		</div>
-	)
-}
-
-function AddServer() {
-	const addNewServer = () => setNewServerIsOpen(true)
-	return (
-		<div onClick={addNewServer} className="block centerText">
-			Add New Server
-		</div>
-	)
-}
-
-function NewServer() {
-	const [newServerName, setNewServerName] = useState('')
-	const handleInput = (e: any) => setNewServerName(e.target.value)
-	const submit = () => {
-		setNewServerIsOpen(false)
-		setServerOptions(prevServerOptions => {
-			// v this v line makes this function idempotent which is what react strict mode wants
-			const newServerOptions = prevServerOptions.filter(server => server.name !== newServerName)
-			// ^      ^
-			newServerOptions.push(new Server({ name: newServerName }))
-			return newServerOptions
-		})
-	}
-	return (
-		<>
-			<div onClick={submit} className="block submit centerText">
-				^
-			</div>
-			<input onChange={handleInput} id="newServerName" className="block input" type="text" />
-		</>
-	)
-}
-
-export default Introduce

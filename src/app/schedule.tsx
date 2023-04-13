@@ -1,14 +1,12 @@
-import './app.css'
-import Server from './server'
 import { sectionDomain } from './app'
 
-function Schedule(props: sectionDomain) {
+export default function Schedule(props: sectionDomain) {
 	return (
 		<div id="schedule" className="squareBubble">
 			<div className="bubbleLabel">Scheduled Servers</div>
 			{props.localList.map((whoever, index) => {
 				return (
-					<div className="block centerText" key={index.toString()} onClick={() => props.changeList(whoever.name)}>
+					<div className="block centerText" key={index.toString()} onClick={() => props.globalStateModifiers[0](whoever.name)}>
 						{whoever.name}
 					</div>
 				)
@@ -16,5 +14,3 @@ function Schedule(props: sectionDomain) {
 		</div>
 	)
 }
-
-export default Schedule
