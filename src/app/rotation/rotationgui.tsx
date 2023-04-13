@@ -6,13 +6,17 @@ export default function Rotation(props: sectionDomain) {
 			<div className="bubbleLabel">Rotation</div>
 			{props.localList.map((server, index) => {
 				return (
-					<div key={index.toString()}>
-						<div className="block gear centerText">C</div>
-						<div className="block middle">
-							<div className="block slice">{server.topDisplay}</div>
-							<div className="block slice">{server.bottomDisplay}</div>
+					<div key={index.toString()} className="block flex">
+						<div className="gear centerText" onClick={() => props.globalStateModifiers.cut(server.name)}>
+							C
 						</div>
-						<div className="block undo centerText">U</div>
+						<div className="middle">
+							<div className="slice">{server.topDisplay}</div>
+							<div className="slice">{server.bottomDisplay}</div>
+						</div>
+						<div className="undo centerText" onClick={() => props.globalStateModifiers.undo(server.name)}>
+							U
+						</div>
 					</div>
 				)
 			})}

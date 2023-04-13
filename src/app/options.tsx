@@ -1,4 +1,3 @@
-import './app.css'
 import { sectionDomain } from './app'
 import { useState } from 'react'
 
