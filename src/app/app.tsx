@@ -31,10 +31,11 @@ export default function App() {
 	function newServer() {
 		return (serverName: string) => {
 			setServers(prevServers => {
-				/* v this line v makes this function idempotent, which is what react wants */
-				const newServers = prevServers.filter(server => server.name !== serverName)
-				newServers.push(new Server({ name: serverName }))
-				return newServers
+				const x = prevServers.find(server => server.name === serverName)
+				console.log(x, !x)
+				if (!x) prevServers.push(new Server({ name: serverName }))
+				console.log(prevServers)
+				return prevServers
 			})
 		}
 	}

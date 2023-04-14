@@ -1,4 +1,4 @@
-class Table {
+export class Table {
 	seating: Date
 	constructor() {
 		this.seating = new Date()
@@ -7,16 +7,16 @@ class Table {
 
 export type location = 'options' | 'schedule' | 'rotation' | 'cut'
 
-class Server {
+export default class Server {
 	name: string
-	count: Array<Table>
+	tables: Array<Table>
 	ideal: number
 	location: location
 	arrival: Date | null
 	left: Date | null
 	constructor(object: Partial<Server>) {
 		this.name = 'Error'
-		this.count = []
+		this.tables = []
 		this.ideal = 0
 		this.location = 'options'
 		this.arrival = null
@@ -28,7 +28,7 @@ class Server {
 	}
 
 	reset(): void {
-		this.count = []
+		this.tables = []
 		this.ideal = 0
 		this.arrival = null
 		this.left = null
@@ -42,19 +42,7 @@ class Server {
 		return hour + ':' + minute
 	}
 
-	get topDisplay(): string {
-		return this.name + ': ' + JSON.stringify(this.count.length)
-	}
-
 	get behind(): number {
-		return this.ideal - this.count.length
-	}
-
-	get bottomDisplay(): string {
-		if (this.behind < 0) return this.time + ' Ahead: ' + JSON.stringify(Math.abs(this.behind))
-		else if (this.behind > 0) return this.time + ' Behind: ' + JSON.stringify(this.behind)
-		else return this.time + ' In Rotation'
+		return this.ideal - this.tables.length
 	}
 }
-
-export default Server
