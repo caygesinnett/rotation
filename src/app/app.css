@@ -48,9 +48,7 @@ body {
 }
 
 .submit {
-	width: 60px;
-	border-right: none;
-	float: left;
+	width: 20%;
 }
 
 .flex {
@@ -84,9 +82,9 @@ body {
 }
 
 .input {
-	width: 234px;
-	height: 58px;
+	width: 80%;
 	color: var(--textColor);
+	background-color: var(--blockBorderColor);
 	text-align: center;
 	font-size: x-large;
 }

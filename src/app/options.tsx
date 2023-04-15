@@ -24,19 +24,19 @@ export default function Options(props: sectionDomain) {
 						)
 					})}
 					{newServerIsOpen ? (
-						<>
+						<div className="block flex">
 							<div
 								onClick={() => {
 									props.globalStateModifiers.createServer(newServerName)
 									setNewServerIsOpen(false)
 									setNewServerName('')
 								}}
-								className="block submit centerText"
+								className="submit centerText"
 							>
 								<img src={plus} className="svg" />
 							</div>
-							<input onChange={(e: any) => setNewServerName(e.target.value)} id="newServerName" className="block input" type="text" />
-						</>
+							<input onChange={(e: any) => setNewServerName(e.target.value)} id="newServerName" className="input" type="text" />
+						</div>
 					) : (
 						<div onClick={() => setNewServerIsOpen(true)} className="block centerText">
 							Add New Server
