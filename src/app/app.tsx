@@ -31,12 +31,10 @@ export default function App() {
 	function newServer() {
 		return (serverName: string) => {
 			setServers(prevServers => {
-				const x = prevServers.find(server => server.name === serverName)
-				console.log(x, !x)
-				if (!x) prevServers.push(new Server({ name: serverName }))
-				console.log(prevServers)
+				if (!prevServers.find(server => server.name === serverName)) prevServers.push(new Server({ name: serverName }))
 				return prevServers
 			})
+			update(!updater)
 		}
 	}
 

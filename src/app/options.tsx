@@ -1,5 +1,7 @@
+import { isPlusToken } from 'typescript'
 import { sectionDomain } from './app'
 import { useState } from 'react'
+import plus from '../other/plus-solid.svg'
 
 export default function Options(props: sectionDomain) {
 	const [optionsAreOpen, setOptionsAreOpen] = useState<boolean>(false)
@@ -31,7 +33,7 @@ export default function Options(props: sectionDomain) {
 								}}
 								className="block submit centerText"
 							>
-								^
+								<img src={plus} className="svg" />
 							</div>
 							<input onChange={(e: any) => setNewServerName(e.target.value)} id="newServerName" className="block input" type="text" />
 						</>
