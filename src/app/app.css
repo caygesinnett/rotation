@@ -1,10 +1,10 @@
 :root {
 	/* color theme */
-	--backgroundColor: black;
-	--textColor: lightgray;
-	--bubbleColor: gray;
-	--blockColor: blue;
-	--blockBorderColor: darkblue;
+	--backgroundColor: #11151c;
+	--textColor: #d6d6d6;
+	--bubbleColor: #b3bed0;
+	--blockColor: #2646a6;
+	--blockBorderColor: #3d3f51;
 }
 
 body {
